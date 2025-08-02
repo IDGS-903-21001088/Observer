@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Observer" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar" >false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!-- Colores de ejemplo -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryDark">@color/purple_700</item>
+        <item name="colorAccent">@color/teal_200</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.Observer">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="CircularImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="NavDrawerTextWhite" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+</resources>

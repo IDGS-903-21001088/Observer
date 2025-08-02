@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- Permiso para usar Internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Observer"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".activity_profile"
+            android:exported="false" />
+        <activity
+            android:name=".activity_detalle_temp"
+            android:exported="false" />
+        <activity
+            android:name=".ruido_activity_admin"
+            android:exported="false" />
+        <activity
+            android:name=".temp_activity_admin"
+            android:exported="false" /> <!-- Para brokers MQTT sin HTTPS -->
+        <!-- Tus actividades -->
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".bas_activity"
+            android:exported="false" />
+        <activity
+            android:name=".ruido_activity"
+            android:exported="false" />
+        <activity
+            android:name=".temp_activity"
+            android:exported="false" />
+        <activity
+            android:name=".login_activity"
+            android:exported="false" /> <!-- Actividad principal -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

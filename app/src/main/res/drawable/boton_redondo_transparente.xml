@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Este es el color de fondo con transparencia -->
+    <solid android:color="#6600FF00" /> <!-- verde con transparencia -->
+
+    <!-- Este es el borde redondeado -->
+    <corners android:radius="30dp" />
+</shape>
