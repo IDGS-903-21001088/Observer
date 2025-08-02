@@ -26,64 +26,52 @@ class temp_activity : AppCompatActivity() {
 
     private lateinit var btnZonaA: Button
     private lateinit var btnZonaB: Button
-    private lateinit var txtZona: TextView
-    private lateinit var txtSensor: TextView
 
-    // Ejemplo de valores simulados
-    private var temperaturaZonaA = 32.0
-    private var temperaturaZonaB = 24.5
+    private lateinit var mqttManager: MqttManager
+
+    // Variables para almacenar datos reales
+    private var temperaturaZonaA = 25.0
+    private var temperaturaZonaB = 25.0
+
+    // TextViews para mostrar temperaturas
+    private lateinit var txtTemperaturaA: TextView
+    private lateinit var txtTemperaturaB: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_temp)
+        setContentView(R.layout.activity_temp_admin)
 
-        drawerLayout = findViewById(R.id.drawer_layout_temp)
+        drawerLayout = findViewById(R.id.drawer_layout_temp_adm)
         toolbar = findViewById(R.id.toolbar_observacion)
-        navView = findViewById(R.id.nav_view_temp)
+        navView = findViewById(R.id.nav_view_temp_adm)
+        btnMenu = findViewById(R.id.btnMenu)
 
         setSupportActionBar(toolbar)
 
         btnZonaA = findViewById(R.id.btnZonaA)
         btnZonaB = findViewById(R.id.btnZonaB)
 
+        // Buscar los TextViews para mostrar temperaturas
+        txtTemperaturaA = findViewById(R.id.txtTemperaturaA)
+        txtTemperaturaB = findViewById(R.id.txtTemperaturaB)
 
+        // Inicializar MQTT
+        mqttManager = MqttManager(this)
 
-        // Cambiar fondo con drawables personalizados según temperatura
-        if (temperaturaZonaA > 30.0) {
-            btnZonaA.setBackgroundResource(R.drawable.fondo_redondo_rojo)
-        } else {
-            btnZonaA.setBackgroundResource(R.drawable.fondo_redondo_verde)
+        // Configurar callback para recibir datos de temperatura
+        mqttManager.onTemperaturaReceived = { tempA, tempB ->
+            runOnUiThread {
+                temperaturaZonaA = tempA
+                temperaturaZonaB = tempB
+                actualizarInterfaz()
+            }
         }
 
-        if (temperaturaZonaB > 30.0) {
-            btnZonaB.setBackgroundResource(R.drawable.fondo_redondo_rojo)
-        } else {
-            btnZonaB.setBackgroundResource(R.drawable.fondo_redondo_verde)
-        }
+        mqttManager.conectar()
 
+        // Actualizar interfaz inicial
+        actualizarInterfaz()
 
-
-        // Al hacer clic, mostrar datos
-        btnZonaA.setOnClickListener {
-            txtZona.text = "Zona: A"
-            txtSensor.text = "Sensor: DHT11-A"
-        }
-
-        btnZonaB.setOnClickListener {
-            txtZona.text = "Zona: B"
-            txtSensor.text = "Sensor: DHT11-B"
-        }
-
-
-
-        // Menú hamburguesa
-        btnMenu = findViewById(R.id.btnMenuObservacion)
-        btnMenu.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.END)
-        }
-
-
-        // Referencias a los contenedores de información
         val layoutInfoA = findViewById<LinearLayout>(R.id.layoutInfoZonaA)
         val layoutInfoB = findViewById<LinearLayout>(R.id.layoutInfoZonaB)
 
@@ -103,31 +91,81 @@ class temp_activity : AppCompatActivity() {
             layoutInfoB.visibility = View.VISIBLE
         }
 
+        val btnIrOtraPantalla = findViewById<Button>(R.id.btnIrOtraPantalla)
 
-        // Menú lateral
-        navView.setNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_init -> {
-                    startActivity(Intent(this, MainActivity::class.java))
-                }
-                R.id.nav_menu -> {
-                    startActivity(Intent(this, AdminActivity::class.java))
-                }
-                R.id.nav_temperatura -> {
-                    startActivity(Intent(this, temp_activity::class.java))
-                }
-                R.id.nav_ruido -> {
-                    startActivity(Intent(this, ruido_activity::class.java))
-                }
-                R.id.nav_ver_mas -> {
-                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://ejemplo.com"))
-                    startActivity(browserIntent)
-                }
-            }
-
-            drawerLayout.closeDrawer(GravityCompat.END) // Cierra el menú después de seleccionar
-            true
+        btnIrOtraPantalla.setOnClickListener {
+            val intent = Intent(this, activity_detalle_temp::class.java)
+            startActivity(intent)
         }
 
+        // Botón hamburguesa a la derecha
+        btnMenu.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.END)
+        }
+
+        // Navegación del menú lateral
+        navView.setNavigationItemSelectedListener { item ->
+            drawerLayout.closeDrawer(GravityCompat.END)
+            when (item.itemId) {
+                R.id.nav_menu -> {
+                    startActivity(Intent(this, AdminActivity::class.java))
+                    true
+                }
+
+                R.id.nav_temperatura -> {
+                    startActivity(Intent(this, temp_activity::class.java))
+                    true
+                }
+
+                R.id.nav_ruido -> {
+                    startActivity(Intent(this, ruido_activity::class.java))
+                    true
+                }
+
+                R.id.nav_bas -> {
+                    startActivity(Intent(this, bas_activity::class.java))
+                    true
+                }
+
+                R.id.nav_profile -> {
+                    startActivity(Intent(this, activity_profile::class.java))
+                    true
+                }
+
+                // Opción: cerrar sesión
+                R.id.nav_logout -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+    private fun actualizarInterfaz() {
+        // Actualizar colores de botones según temperatura
+        if (temperaturaZonaA > 30.0) {
+            btnZonaA.setBackgroundResource(R.drawable.fondo_redondo_rojo)
+        } else {
+            btnZonaA.setBackgroundResource(R.drawable.fondo_redondo_verde)
+        }
+
+        if (temperaturaZonaB > 30.0) {
+            btnZonaB.setBackgroundResource(R.drawable.fondo_redondo_rojo)
+        } else {
+            btnZonaB.setBackgroundResource(R.drawable.fondo_redondo_verde)
+        }
+
+        // Actualizar textos de temperatura
+        txtTemperaturaA.text = "${temperaturaZonaA}°C"
+        txtTemperaturaB.text = "${temperaturaZonaB}°C"
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mqttManager.desconectar()
     }
 }

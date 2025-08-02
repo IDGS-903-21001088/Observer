@@ -27,7 +27,6 @@ class temp_activity_admin : AppCompatActivity() {
     private lateinit var btnZonaA: Button
     private lateinit var btnZonaB: Button
 
-    // MQTT Manager
     private lateinit var mqttManager: MqttManager
 
     // Variables para almacenar datos reales
@@ -68,13 +67,11 @@ class temp_activity_admin : AppCompatActivity() {
             }
         }
 
-        // Conectar MQTT
         mqttManager.conectar()
 
         // Actualizar interfaz inicial
         actualizarInterfaz()
 
-        // Referencias a los contenedores de información
         val layoutInfoA = findViewById<LinearLayout>(R.id.layoutInfoZonaA)
         val layoutInfoB = findViewById<LinearLayout>(R.id.layoutInfoZonaB)
 

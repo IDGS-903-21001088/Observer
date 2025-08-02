@@ -29,7 +29,6 @@ class bas_activity : AppCompatActivity() {
     private lateinit var txtZona: TextView
     private lateinit var txtSensor: TextView
 
-    // MQTT Manager
     private lateinit var mqttManager: MqttManager
 
     // Variables para almacenar datos reales de presión (nivel de llenado en %)
@@ -54,7 +53,6 @@ class bas_activity : AppCompatActivity() {
         btnZonaA = findViewById(R.id.btnZonaA)
         btnZonaB = findViewById(R.id.btnZonaB)
 
-        // Buscar los TextViews para mostrar presión (debes agregarlos en tu layout)
         txtPresionA = findViewById(R.id.txtPresionA)
         txtPresionB = findViewById(R.id.txtPresionB)
 
@@ -70,10 +68,8 @@ class bas_activity : AppCompatActivity() {
             }
         }
 
-        // Conectar MQTT
         mqttManager.conectar()
 
-        // Actualizar interfaz inicial
         actualizarInterfazBasura()
 
         // Al hacer clic en zona A

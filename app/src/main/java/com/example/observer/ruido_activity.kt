@@ -30,7 +30,6 @@ class ruido_activity : AppCompatActivity() {
     private lateinit var txtZona: TextView
     private lateinit var txtSensor: TextView
 
-    // MQTT Manager
     private lateinit var mqttManager: MqttManager
 
     // Variables para almacenar datos reales de ruido (en dB)
@@ -71,7 +70,6 @@ class ruido_activity : AppCompatActivity() {
             }
         }
 
-        // Conectar MQTT
         mqttManager.conectar()
 
         // Actualizar interfaz inicial

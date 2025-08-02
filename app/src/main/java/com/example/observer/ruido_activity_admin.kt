@@ -54,7 +54,6 @@ class ruido_activity_admin : AppCompatActivity() {
         btnZonaA = findViewById(R.id.btnZonaA)
         btnZonaB = findViewById(R.id.btnZonaB)
 
-        // Buscar los TextViews para mostrar ruido (debes agregarlos en tu layout)
         txtRuidoA = findViewById(R.id.txtRuidoA)
         txtRuidoB = findViewById(R.id.txtRuidoB)
 
@@ -70,7 +69,6 @@ class ruido_activity_admin : AppCompatActivity() {
             }
         }
 
-        // Conectar MQTT
         mqttManager.conectar()
 
         // Actualizar interfaz inicial
