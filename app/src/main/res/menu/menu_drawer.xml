@@ -1,28 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_init"
             android:title="Inicio" />
+
         <item
             android:id="@+id/nav_menu"
-            android:title="Menu" />
-            
+            android:title="Menú" />
+
         <item
             android:id="@+id/nav_temperatura"
             android:title="Temperatura" />
+
         <item
             android:id="@+id/nav_ruido"
             android:title="Ruido" />
 
         <item
+            android:id="@+id/nav_bas"
+            android:title="Basura" />
+
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Perfil" />
+
+        <item
             android:id="@+id/nav_log"
             android:title="Administrador" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Cerrar Sesión" />
+
         <item
             android:id="@+id/nav_ver_mas"
             android:title="Ver más" />
     </group>
-</menu>
 
+</menu>

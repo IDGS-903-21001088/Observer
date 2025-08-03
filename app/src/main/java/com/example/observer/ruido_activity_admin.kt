@@ -115,39 +115,45 @@ class ruido_activity_admin : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { item ->
             drawerLayout.closeDrawer(GravityCompat.END)
             when (item.itemId) {
+                R.id.nav_init -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
                 R.id.nav_menu -> {
-                    startActivity(Intent(this, AdminActivity::class.java))
+                    startActivity(Intent(this, AdminActivity2::class.java))
                     true
                 }
-
                 R.id.nav_temperatura -> {
-                    startActivity(Intent(this, temp_activity::class.java))
+                    startActivity(Intent(this, temp_activity_admin::class.java))
                     true
                 }
-
                 R.id.nav_ruido -> {
-                    startActivity(Intent(this, ruido_activity::class.java))
+                    startActivity(Intent(this, ruido_activity_admin::class.java))
                     true
                 }
-
                 R.id.nav_bas -> {
                     startActivity(Intent(this, bas_activity::class.java))
                     true
                 }
-
                 R.id.nav_profile -> {
                     startActivity(Intent(this, activity_profile::class.java))
                     true
                 }
-
-                // Oción: cerrar sesión
+                R.id.nav_log -> {
+                    startActivity(Intent(this, login_activity::class.java))
+                    true
+                }
                 R.id.nav_logout -> {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                     true
                 }
-
+                R.id.nav_ver_mas -> {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://ejemplo.com"))
+                    startActivity(browserIntent)
+                    true
+                }
                 else -> false
             }
         }
