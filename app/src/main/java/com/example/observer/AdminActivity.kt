@@ -71,10 +71,7 @@ class AdminActivity : AppCompatActivity() {
                     startActivity(Intent(this, ruido_activity_admin::class.java))
                     true
                 }
-                R.id.nav_bas -> {
-                    startActivity(Intent(this, bas_activity::class.java))
-                    true
-                }
+
                 R.id.nav_profile -> {
                     startActivity(Intent(this, activity_profile::class.java))
                     true

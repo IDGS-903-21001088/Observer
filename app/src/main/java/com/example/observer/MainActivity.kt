@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         // Botón "Comenzar a observar" - ahora redirige a AdminActivity2
         val btnComenzar = findViewById<Button>(R.id.btnComenzar)
         btnComenzar.setOnClickListener {
-            startActivity(Intent(this, AdminActivity2::class.java))
+            startActivity(Intent(this, AdminActivity::class.java))
         }
 
         // Menú lateral unificado
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_menu -> {
-                    startActivity(Intent(this, AdminActivity2::class.java))
+                    startActivity(Intent(this, AdminActivity::class.java))
                     true
                 }
                 R.id.nav_temperatura -> {
@@ -74,10 +74,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, ruido_activity_admin::class.java))
                     true
                 }
-                R.id.nav_bas -> {
-                    startActivity(Intent(this, bas_activity::class.java))
-                    true
-                }
+
                 R.id.nav_profile -> {
                     startActivity(Intent(this, activity_profile::class.java))
                     true
